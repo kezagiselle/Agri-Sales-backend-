@@ -5,9 +5,12 @@ const app = express();
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js'
 import Configurations from './configurations/index.js';
+import ErrorHandler from './middleware/ErrorHandler.js';
 
 app.use(express.json());
 app.use('/api/agri-sales', router)
+// app.use(userRouter);
+
 
 
 
