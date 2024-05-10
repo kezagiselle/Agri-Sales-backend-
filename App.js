@@ -10,6 +10,7 @@ app.use(express.json());
 app.use('/api/agri-sales', router)
 
 
+
 const start = async () => {
     
     app.listen(Configurations.PORT, () => console.log(`Server is running on port ${Configurations.PORT}`))
