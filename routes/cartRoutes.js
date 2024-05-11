@@ -3,7 +3,10 @@ import { addProductToCart, removeProductFromCart, updateProductInCart } from '..
 const cartRouter = express.Router();
 
 
+
 cartRouter.post('/add', addProductToCart)
+
+cartRouter.get('/add', addProductToCart)
 cartRouter.delete('/remove', removeProductFromCart)
 cartRouter.put('/update', updateProductInCart)
 

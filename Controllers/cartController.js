@@ -9,6 +9,7 @@ async (res, req, next) =>{
     try {
         const { buyerId, productId, quantity} = req.body;
         const existingCart = await Cart.findOne({ buyerId, productId, totalPrice, });
+
         if (existingCart) {
           
           existingCart.quantity += quantity;

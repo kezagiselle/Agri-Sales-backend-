@@ -30,7 +30,7 @@ const ProductSchema = new mongoose.Schema({
   image: {
     type: String,
     required:false
-  },
+  }
 });
 
 const Product = new mongoose.model('Product', ProductSchema);
