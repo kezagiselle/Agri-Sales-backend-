@@ -25,8 +25,12 @@ const ProductSchema = new mongoose.Schema({
   category:{
     type: String,
     required:false,
-    enums:['Vegetables,Fruts']
-  }
+    enums:['Vegetables,Fruits']
+  },
+  image: {
+    type: String,
+    required:false
+  },
 });
 
 const Product = new mongoose.model('Product', ProductSchema);

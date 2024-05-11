@@ -1,11 +1,14 @@
 import express from 'express';
 import Cart from "../models/CartModel.js";
+import { validateCart } from '../utils/validation.js';
 
 
-export const addProductToCart = async (res, req, next) =>{
+export const addProductToCart = 
+async (res, req, next) =>{
+  validateCart(res, req, next);
     try {
-        const { buyerId, productId, quantity } = req.body;
-        const existingCart = await Cart.findOne({ buyerId, productId });
+        const { buyerId, productId, quantity} = req.body;
+        const existingCart = await Cart.findOne({ buyerId, productId, totalPrice, });
         if (existingCart) {
           
           existingCart.quantity += quantity;
