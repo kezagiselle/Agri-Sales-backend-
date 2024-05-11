@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const CartSchema = new mongoose.Schema({
   buyerId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Buyer',
-    required: true,
+    ref: 'User',
+    required: false,
   },
   productId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,13 +19,10 @@ const CartSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  status: {
+  transactionStatus: {
     type: String,
     enum: ['pending', 'shipped', 'delivered'],
     default: 'pending',
-  },
-  image: {
-    type: String,
   },
   createdAt: {
     type: Date,

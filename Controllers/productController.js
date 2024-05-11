@@ -1,7 +1,11 @@
 import Product from "../models/productsModel.js";
+import { upload } from "../utils/uploadImage.js";
 
 
-export const AddProduct = async (req,res,next) =>{
+
+export const AddProduct = upload.single('image') 
+async (req,res,next) =>{
+
     const createProduct = req.body
     try{
         const createdProduct = await Product.create(createProduct)
