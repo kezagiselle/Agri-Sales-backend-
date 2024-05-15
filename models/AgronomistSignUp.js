@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
-const farmerSchema = new mongoose.Schema({
+const agronomistSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true
@@ -47,5 +47,5 @@ const farmerSchema = new mongoose.Schema({
     },
     timestamps: true,
 });
-const farmerModel = mongoose.model('farmer',farmerSchema);
-export default farmerModel;
+const agronomistModel = mongoose.model('agronomist',agronomistSchema);
+export default agronomistModel;

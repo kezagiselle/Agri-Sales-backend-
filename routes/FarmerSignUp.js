@@ -1,6 +1,6 @@
 import express from 'express';
 const farmerRouter = express.Router();
-import farmerControllers from '../Controllers/farmer.js';
+import farmerControllers from '../Controllers/farmerSignUp.js';
 import allValidation from '../utils/validation.js';
 // import checkUsers
 

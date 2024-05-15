@@ -33,8 +33,8 @@ const signUp = asyncWrapper(async(req,res,next) => {
         const newFarmer = new farmerModel({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            // role: req.body.role,
             email: req.body.email,
+            role: req.body.role,
             password: hashedPassword,
             otp: otp,
             otpExpires: otpExpirationDate,
@@ -93,12 +93,12 @@ const signUp = asyncWrapper(async(req,res,next) => {
         }
     
         //verify password
-        const isPasswordVerfied = await bcrypt.compareSync(req.body.password, foundBuyer.password);
+        const isPasswordVerfied = await bcrypt.compareSync(req.body.password, foundFarmer.password);
         if (!isPasswordVerfied) {
             return next(new BadRequestError("Invalid email or password!"));
         }
         //generate token
-        const token = jwt.sign({ id: foundBuyer._id, email: foundBuyer.email }, process.env.JWT_SECRET, { expiresIn: "3h" });
+        const token = jwt.sign({ id: foundFarmer._id, email: foundFarmer.email }, process.env.JWT_SECRET, { expiresIn: "3h" });
         const options = {
             expiresIn: "3h",
             httpOnly: true
@@ -122,12 +122,12 @@ const signUp = asyncWrapper(async(req,res,next) => {
             return next(new BadRequestError("Your email is not registered!"));
         };
         //Generate token
-        const token = jwt.sign({ id: foundBuyer.id }, process.env.JWT_SECRET, { expiresIn: "3h" });
+        const token = jwt.sign({ id: foundFarmer.id }, process.env.JWT_SECRET, { expiresIn: "3h" });
     
         //Recording the token to the database
         await Token.create({
             token: token,
-            user: foundBuyer._id,
+            user: foundFarmer._id,
             expirationDate: new Date().getTime() + (60 * 1000 * 30),
         });
         const link = `http://localhost:4000/reset-password?token=${token}&id=${foundFarmer.id}`;

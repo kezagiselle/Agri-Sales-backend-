@@ -1,6 +1,6 @@
 import express from 'express';
 const buyerRouter = express.Router();
-import buyerControllers from '../Controllers/buyer.js';
+import buyerControllers from '../Controllers/buyerSignup.js';
 import allValidation from '../utils/validation.js';
 // import checkUsers
 
