@@ -3,22 +3,30 @@ import { upload } from "../utils/uploadImage.js";
 
 
 
-export const AddProduct = upload.single('image') 
-async (req,res,next) =>{
 
-    const createProduct = req.body
-    try{
-        const createdProduct = await Product.create(createProduct)
-        res.status(201).json({
-         message: 'Product added successfully', 
-         createdProduct
+export const AddProduct = 
+async (req, res, next) =>{
+  try {
+    // Extract product details from the request body
+    const { productName, description, price, productInStock, category } = req.body;
+
+    // Prepare the product data
+    const newProduct = new Product({
+      productName,
+      description,
+      price,
+      productInStock,
+      category,
+      image: req.file.path // Save the path to the uploaded image
     });
 
-    }catch(error){
-        res.status(500).json({ message: error.message });
-
-    }
-
+    // Save the product to the database
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to add product.' });
+  }
 }
 
 export const getProduct = async (req,res,next) =>{
