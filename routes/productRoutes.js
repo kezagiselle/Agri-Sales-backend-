@@ -1,10 +1,11 @@
 import express from 'express';
 import { AddProduct,getProduct, updateProductById, DeleteProductById } from '../Controllers/productController.js';
 const productRouter = express.Router();
+import checkUsers from '../middleware/authorisation.js';
 
-productRouter.use('/add', AddProduct)
+productRouter.use('/add',checkUsers.admin,AddProduct)
 productRouter.use('/productList', getProduct)
-productRouter.use('/update', updateProductById)
-productRouter.use('/delete', DeleteProductById)
+productRouter.use('/update', checkUsers.admin,updateProductById)
+productRouter.use('/delete', checkUsers.admin,DeleteProductById)
 
 export default productRouter
