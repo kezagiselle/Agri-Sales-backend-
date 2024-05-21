@@ -1,19 +1,18 @@
 export const documentation = {
     "swagger": "2.0",
     "info": {
-        "title": "E-COMMERCE WEBSITE API",
-        "description": "This is the API Specification for the e-commerce backend server",
+        "title": "AGRI-SALES",
+        "description": "This is AP",
         "version": "1.0.0",
         "contact": {
-            "email": "benigneniyonizera58@gmail.com"
+            "email": "uwasandrine99@gmail.com"
         },
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/license/mit"
         },
         "externalDocs": {
-            "description": "Get source code",
-            "url": "https://github.com/NIYONIZERA/E-commerce-website-Backend"
+            "description": "Get source code"
         }
     },
     

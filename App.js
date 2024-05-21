@@ -4,12 +4,10 @@ import express, { Router } from 'express';
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
 import Configurations from './configurations/index.js';
-<<<<<<< HEAD
 import swaggerUI from "swagger-ui-express";
 import { documentation } from './docs/swaggerDocumentation.js';
-=======
 import ErrorHandler from './middleware/ErrorHandler.js';
->>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
+
 
 
 

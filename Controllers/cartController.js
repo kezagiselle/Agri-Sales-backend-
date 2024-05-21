@@ -19,7 +19,7 @@ export const addProductToCart = async (req, res) => {
       return res.status(400).json({ message: 'Not enough quantity available' });
     }
 
-    await Product.findByIdAndUpdate(productId, { $inc: { productInStock: -quantity } });
+    // await Product.findByIdAndUpdate(productId, { $inc: { productInStock: -quantity } });
 
     
     const totalPrice = quantity * product.price;
@@ -67,25 +67,25 @@ export const addProductToCart = async (req, res) => {
 
 
 
-    export const updateProductInCart = async (req, res, next) => {
+    export const removeProductFromCart = async (req, res, next) => {
       try {
-        const updatedCart = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+      
+        const deletedProduct = await Cart.findByIdAndDelete(req.params.id);
     
-        
-        if (!updatedCart) {
+        if (!deletedProduct) {
           return res.status(404).json({ message: 'Product not found' });
         }
     
         res.status(200).json({
           success: true,
-          product: updatedCart,
+          message: 'Product deleted successfully',
         });
       } catch (err) {
        
         console.error(err);
-        res.status(500).json({ message: 'An error occurred while updating the product in Cart.' });
+        res.status(500).json({ message: 'An error occurred while deleting the product.' });
       }
-    };
+};
 
     export const getCart = async (req,res,next) =>{
       const buyerId = req.params.buyerId;
@@ -105,26 +105,24 @@ export const addProductToCart = async (req, res) => {
       }
 
 
-      export const removeProductFromCart = async (req, res, next) => {
+      export const updateProductInCart = async (req, res, next) => {
         try {
-          const { cartId } = req.params;
+          const updatedProduct = await Cart.findByIdAndUpdate(req.params.id, req.body, {new: true});
       
-          // Find the product in the cart and remove it
-          const removedProduct = await Cart.findByIdAndDelete(cartId);
           
-          if (!removedProduct) {
-            return res.status(404).json({ message: "Product not found in cart" });
+          if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
           }
       
           res.status(200).json({
-            message: "Product removed from cart successfully",
-            removedProduct: removedProduct,
+            success: true,
+            product: updatedProduct,
           });
-        } catch (error) {
-          console.error(error);
-          res.status(500).json({ message: "Server error" });
+        } catch (err) {
+         
+          console.error(err);
+          res.status(500).json({ message: 'An error occurred while updating the product.' });
         }
-      }
-      
+      };
       
     

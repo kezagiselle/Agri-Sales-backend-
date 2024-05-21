@@ -1,15 +1,15 @@
-<<<<<<< HEAD
-import {body} from "express-validator"
+
+// import {body} from "express-validator"
 import { validationResult } from "express-validator"
 
-  export const addProductValidator = [
-    body("farmerId", "farmerId is required").optional().isMongoId(),
-    body("productName", "product name is required").notEmpty().isString(),
-    body("description", "description is required").notEmpty().isString(),
-    body("price", "product price is required").notEmpty().isNumeric(),
-    body("category", "category is required").notEmpty().isIn(['Vegetables', 'Fruits']),
-    body("image", "image is required").optional().isString(),
-  ];
+  // const addProductValidator = [
+  //   body("farmerId", "farmerId is required").optional().isMongoId(),
+  //   body("productName", "product name is required").notEmpty().isString(),
+  //   body("description", "description is required").notEmpty().isString(),
+  //   body("price", "product price is required").notEmpty().isNumeric(),
+  //   body("category", "category is required").notEmpty().isIn(['Vegetables', 'Fruits']),
+  //   body("image", "image is required").optional().isString(),
+  // ];
   
     
 
@@ -21,7 +21,7 @@ import { validationResult } from "express-validator"
 //     body('products.*.productId').exists().withMessage('Each product must have a productId'),
 //     body('products.*.quantity').exists().withMessage('Each product must have a quantity')
 //   ]
-=======
+
 
 import {body} from "express-validator";
 
@@ -57,17 +57,17 @@ const resetPasswordValidation = [
     // body("confirmPassword", "confirmPassword must be provided with atleast 8 characters").isStrongPassword(),
     // body("confirmPassword", "Passwords do not match").custom((value, { req }) => value === req.body.password)   
 ];
-const addProductValidator=[
+export const addProductValidator=[
      body("name","product name is required").notEmpty().isString(),
     body("price","product price is required").notEmpty().isNumeric(),
 ];
 const  validateCart = (req, res, next) =>{
     const { buyerId, productId, quantity } = req.body;
->>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
+
   
   
 
-  export const addCartValidation = [
+    const addCartValidator = [
     body("quantity", "quantity is required").notEmpty().isNumeric()
     .withMessage("quantity must be a number").custom((value) => value > 0, 
     { message: "quantity must be greater than 0" }),
@@ -76,14 +76,14 @@ const  validateCart = (req, res, next) =>{
 
 
 
-  export const validatedCart = async (req, res) => {
+  const validatedCart = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-<<<<<<< HEAD
+
   }
-=======
+
   
     if (typeof quantity!== 'number' || quantity <= 0) {
       return res.status(400).json({ message: 'Invalid quantity' });
@@ -102,8 +102,10 @@ const allValidation ={
     otpValidation,
     forgotPasswordValidation,
     resetPasswordValidation,
-    validateCart 
-    addProductValidator
+    validateCart ,
+    addProductValidator,
+   
+    
 };
 export default allValidation;
->>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
+
