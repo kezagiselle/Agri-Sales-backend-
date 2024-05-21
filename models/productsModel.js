@@ -4,7 +4,7 @@ const ProductSchema = new mongoose.Schema({
   farmerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer',
-    required: true,
+    required: false,
   },
   productName: {
     type: String,
@@ -22,6 +22,15 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  category:{
+    type: String,
+    required:false,
+    enums:['Vegetables,Fruits']
+  },
+  image: {
+    type: String,
+    required:false
+  }
 });
 
 const Product = new mongoose.model('Product', ProductSchema);

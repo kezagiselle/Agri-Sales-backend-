@@ -1,3 +1,4 @@
+
 import {body} from "express-validator";
 
 const addUserValidation = [
@@ -32,6 +33,24 @@ const resetPasswordValidation = [
     // body("confirmPassword", "confirmPassword must be provided with atleast 8 characters").isStrongPassword(),
     // body("confirmPassword", "Passwords do not match").custom((value, { req }) => value === req.body.password)   
 ];
+const addProductValidator=[
+     body("name","product name is required").notEmpty().isString(),
+    body("price","product price is required").notEmpty().isNumeric(),
+];
+const  validateCart = (req, res, next) =>{
+    const { buyerId, productId, quantity } = req.body;
+  
+    if (!buyerId ||!productId ||!quantity) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+  
+    if (typeof quantity!== 'number' || quantity <= 0) {
+      return res.status(400).json({ message: 'Invalid quantity' });
+    }
+  
+    next();
+  }
+
 
 
 
@@ -41,7 +60,8 @@ const allValidation ={
     signInValidation,
     otpValidation,
     forgotPasswordValidation,
-    resetPasswordValidation
-
+    resetPasswordValidation,
+    validateCart 
+    addProductValidator
 };
 export default allValidation;

@@ -1,7 +1,11 @@
 import Product from "../models/productsModel.js";
+import { upload } from "../utils/uploadImage.js";
 
 
-export const AddProduct = async () =>{
+
+export const AddProduct = upload.single('image') 
+async (req,res,next) =>{
+
     const createProduct = req.body
     try{
         const createdProduct = await Product.create(createProduct)
@@ -17,47 +21,74 @@ export const AddProduct = async () =>{
 
 }
 
-export const getProduct = async () =>{
+export const getProduct = async (req,res,next) =>{
+    const {farmerId} = req.params
     try{
-        const getProduct = await Product.find({farmerId} = re.params)
+        const getProduct = await Product.find({farmerId})
         res.status(200).json({
             getProduct
         })
 
     }
-    catch(error){
-        res.status(500).json({ message: error.message });
+    catch(err){
+        res.status(500).json({ message: err.message });
 
     }
 }
 
-export const updateProductById = async () =>{
-    const ProductId = req.query
-    const updateProduct = req.body
-    try{
-        const update = await Product.findById(ProductId, updateProduct, {new : true})
-        if (!update) {
+export const updateProductById = async (req, res, next) => {
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    
+        
+        if (!updatedProduct) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+    
+        res.status(200).json({
+          success: true,
+          product: updatedProduct,
+        });
+      } catch (err) {
+       
+        console.error(err);
+        res.status(500).json({ message: 'An error occurred while updating the product.' });
+      }
+    };
 
-           return res.status(404).json({ message: 'Product not found' }); 
+export const DeleteProductById = async (req,res,next) => {
+    try {
+      
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    
+        if (!deletedProduct) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+    
+        res.status(200).json({
+          success: true,
+          message: 'Product deleted successfully',
+        });
+      } catch (err) {
+       
+        console.error(err);
+        res.status(500).json({ message: 'An error occurred while deleting the product.' });
+      }
+}
+
+export const findProductByCategory = async (req, res, next) => {
+    try {
+        const categoryName = req.params.categoryName;
+        const products = await Product.find({ category: categoryName });
+    
+        if (products.length === 0) {
+          return res.status(404).json({ message: 'No products found with the given category.' });
         }
 
-        return res.status(200).json({ 
-            message: 'Product updated successfully', 
-            update 
-    });
-            
-
-    }
-    catch(error){
-        res.status(500).json({ message: error.message });
-
-    }
-}
-
-export const DeleteProductById = (req, res) => {
-    try{
-
-    }
-    catch(error){}
-
-}
+        res.status(200).json(products);
+      } catch (err) {
+      
+        console.error(err);
+        res.status(500).json({ message: 'An error occurred while finding products by category.' });
+      }
+    };
