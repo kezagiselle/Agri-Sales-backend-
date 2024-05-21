@@ -20,14 +20,14 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true
-<<<<<<< HEAD
+
     }
 }, {
     timestamps: true 
-=======
+
     },
->>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
-});
+
+);
 
 const userModel = mongoose.model('User', userSchema);
 export default userModel;

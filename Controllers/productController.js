@@ -7,20 +7,24 @@ import { upload } from "../utils/uploadImage.js";
 export const AddProduct = 
 async (req, res, next) =>{
   try {
-    // Extract product details from the request body
+    // if (req.user.Role!== 'farmer') {
+    //   return res.status(403).json({ message: 'Only farmers can add products.' });
+    // }
+
+
     const { productName, description, price, productInStock, category } = req.body;
 
-    // Prepare the product data
+   
     const newProduct = new Product({
       productName,
       description,
       price,
       productInStock,
       category,
-      image: req.file.path // Save the path to the uploaded image
+      image: req.file.path 
     });
 
-    // Save the product to the database
+    
     await newProduct.save();
     res.status(201).json(newProduct);
   } catch (error) {
@@ -86,7 +90,7 @@ export const DeleteProductById = async (req,res,next) => {
 
 export const findProductByCategory = async (req, res, next) => {
     try {
-        const categoryName = req.params.categoryName;
+        const categoryName = req.params.category;
         const products = await Product.find({ category: categoryName });
     
         if (products.length === 0) {
