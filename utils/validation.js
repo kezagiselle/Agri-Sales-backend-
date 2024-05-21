@@ -1,3 +1,27 @@
+<<<<<<< HEAD
+import {body} from "express-validator"
+import { validationResult } from "express-validator"
+
+  export const addProductValidator = [
+    body("farmerId", "farmerId is required").optional().isMongoId(),
+    body("productName", "product name is required").notEmpty().isString(),
+    body("description", "description is required").notEmpty().isString(),
+    body("price", "product price is required").notEmpty().isNumeric(),
+    body("category", "category is required").notEmpty().isIn(['Vegetables', 'Fruits']),
+    body("image", "image is required").optional().isString(),
+  ];
+  
+    
+
+// export const  validateCart = 
+    
+//   [
+//     body('buyerId').exists().withMessage('Buyer ID is required'),
+//     body('products').isArray().withMessage('Products array is required'),
+//     body('products.*.productId').exists().withMessage('Each product must have a productId'),
+//     body('products.*.quantity').exists().withMessage('Each product must have a quantity')
+//   ]
+=======
 
 import {body} from "express-validator";
 
@@ -39,10 +63,27 @@ const addProductValidator=[
 ];
 const  validateCart = (req, res, next) =>{
     const { buyerId, productId, quantity } = req.body;
+>>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
   
-    if (!buyerId ||!productId ||!quantity) {
-      return res.status(400).json({ message: 'Missing required fields' });
+  
+
+  export const addCartValidation = [
+    body("quantity", "quantity is required").notEmpty().isNumeric()
+    .withMessage("quantity must be a number").custom((value) => value > 0, 
+    { message: "quantity must be greater than 0" }),
+
+  ]
+
+
+
+  export const validatedCart = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
+<<<<<<< HEAD
+  }
+=======
   
     if (typeof quantity!== 'number' || quantity <= 0) {
       return res.status(400).json({ message: 'Invalid quantity' });
@@ -65,3 +106,4 @@ const allValidation ={
     addProductValidator
 };
 export default allValidation;
+>>>>>>> 5f64dadd8421a0cd785b7910a864a7e54db0f794
