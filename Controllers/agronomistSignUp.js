@@ -115,7 +115,7 @@ const forgotPassword = asyncWrapper(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new BadRequestError(errors.array()[0].msg));
-    }
+    };
     //find user
     const foundAgronomist = await agronomistModel.findOne({ email: req.body.email });
     if (!foundAgronomist) {
@@ -130,7 +130,7 @@ const forgotPassword = asyncWrapper(async (req, res, next) => {
         user: foundAgronomist._id,
         expirationDate: new Date().getTime() + (60 * 1000 * 30),
     });
-    const link = `http://localhost:4000/reset-password?token=${token}&id=${foundBuyer.id}`;
+    const link = `http://localhost:4000/reset-password?token=${token}&id=${foundAgronomist.id}`;
     const emailBody = `Click on the link bellow to reset your password\n\n${link}`;
 
     await sendEmail(req.body.email, "Reset your password", emailBody);
@@ -141,50 +141,37 @@ const forgotPassword = asyncWrapper(async (req, res, next) => {
 });
 
 const resetPassword = asyncWrapper(async (req,res,next) => {
-    //validation
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return next(new BadRequestError(errors.array()[0].msg));
-    };
-
-    //verify token
-    const decoded = await jwt.verify(req.body.token, process.env.JWT_SECRET);
-    if (!decoded) {
-        return next(new BadRequestError("Invalid token!"));
-    }
-
-    const recordedToken = await Token.findOne({ token: req.body.token });
+        const { token, id, password } = req.body;
     
-    if (decoded.id!= req.body.id || recordedToken.user!= req.body.id) {
-        return next(new BadRequestError("Invalid token!"));
-    }
-
-    if (new Date(recordedToken.expirationDate).getTime() < new Date().getTime()) {
-        return next(new BadRequestError("Token expired!"));
-    }
-
-    //find user
-    const foundAgronomist = await agronomistModel.findById(req.body.id);
-    if (!foundAgronomist) {
-        return next(new BadRequestError("User not found!"));
-    };
-
-    //Deleting the user token
-    await Token.deleteOne({ token: req.body.token });
-
-    //Harshing the user password
-    const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
+        // Validate input
+        if (!token || !id || !password) {
+            return next(new BadRequestError("Token, id, and new password are required."));
+        }
     
-    //updating the user password
-    foundAgronomist.password = hashedPassword;
-
-    const savedAgronomist = await savedAgronomist.save();
-    if (savedAgronomist) {
-        return res.status(200).json({
-            message: "Your password has been reset!",
-        })
-    }
-});
+        // Verify token
+        const foundToken = await Token.findOne({token});
+        if (!foundToken) {
+            return next(new BadRequestError("Invalid or expired token."));
+        }
+    
+        // Update user's password
+        const foundAgronomist = await agronomistModel.findById(id);
+        if (!foundAgronomist) {
+            return next(new BadRequestError("Invalid agronomist."));
+        }
+    
+        // Update user's password
+        foundAgronomist.password = password;
+        await foundAgronomist.save();
+    
+        // Delete token from database
+        await Token.deleteOne({token});
+    
+        res.status(200).json({
+            message: "Password reset successful.",
+        });
+    });
+    
 const deleteAgronomist = asyncWrapper(async (req, res, next) => {
     const id = req.params.id;
     const agronomist = await agronomistModel.findByIdAndDelete(id);

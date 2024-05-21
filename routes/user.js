@@ -2,6 +2,7 @@ import express from "express";
 const userRouter = express.Router();
 import userControllers from "../Controllers/user.js";
 import allValidation from "../utils/validation.js";
+import checkUsers from "../middleware/authorisation.js";
 
 userRouter.post('/addUser',allValidation.addUserValidation,userControllers.addUser);
 userRouter.get('/listUsers',userControllers.getAllUsers);
