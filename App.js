@@ -3,7 +3,6 @@ dotenv.config();
 import express, { Router } from 'express';
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
-import Configurations from './configurations/index.js';
 import swaggerUI from "swagger-ui-express";
 import swaggerDocumentation from './docs/swaggerDocumentation.js'
 import ErrorHandler from './middleware/ErrorHandler.js';
@@ -25,7 +24,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
 const start = async () => {
     try {
      connectDB(); 
-        app.listen(Configurations.PORT, () => console.log(`Server is running on port ${Configurations.PORT}`));
+        app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`));
     } catch (error) {
         console.error('Failed to start server:', error);
     }
