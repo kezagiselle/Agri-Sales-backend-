@@ -72,9 +72,15 @@ const ProductSchema = new mongoose.Schema({
     enums:['Vegetables,Fruits']
   },
   image: {
-    type: String,
-    required:true,
-    
+    public_id: {
+      type: String,
+    },
+    asset_id:{
+      type: String,
+    },
+    url:{
+      type: String,
+    }
   },
   updatedAt: {
     type: Date,

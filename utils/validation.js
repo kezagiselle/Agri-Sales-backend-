@@ -36,7 +36,7 @@ const signUpValidation = [
     body("email", "invalid email").isEmail(),
     // body("role","role is required").not().isEmpty(),
     body("password", "password is required").not().isEmpty(),
-    body("password", "Password should contain atleast 8 characters, uppercase and lowercase letters").isStrongPassword()
+    // body("password", "Password should contain atleast 8 characters, uppercase and lowercase letters").isStrongPassword()
 ];
 const signInValidation = [
     body("email", "Email is required").not().isEmpty(),
