@@ -13,21 +13,17 @@ import OrderItem from "../models/orderItem.js";
     try {
       const { buyerId, orderItems, shippingAddress, city, country, phone, transactionStatus } = req.body;
   
-      // Validate input (simplified validation for demonstration)
+      
       if (!buyerId ||!Array.isArray(orderItems)) {
         return res.status(400).json({ message: 'Invalid request body.' });
       }
-  
-      // Fetch the current prices of the products from the database
       const productPrices = await Product.find({ _id: { $in: orderItems.map(item => item.productId) } }).lean();
   
-      // Calculate the total price of the order items
       const orderTotalPrice = orderItems.reduce((total, item) => {
         const product = productPrices.find(p => p._id.equals(item.productId));
         return total + (product.price * parseInt(item.quantity));
       }, 0);
-  
-      // Map over the orderItems array to create and save OrderItem instances
+
       const savedOrderItems = await Promise.all(orderItems.map(async (item) => {
         const newItem = new OrderItem({
           quantity: parseInt(item.quantity),
