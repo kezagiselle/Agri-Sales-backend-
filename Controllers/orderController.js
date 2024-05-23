@@ -162,8 +162,6 @@ export const getTotalProductOrders = async (req, res) => {
         }
       }
     ]);
-
-    // Check if totalProduct is an array and has at least one element
     if (!totalProduct.length) {
       return res.status(400).json({ message: 'The order sales cannot be generated' });
     }
