@@ -12,7 +12,7 @@ import orderRouter from './orderRoutes.js';
 
 router.use('/products', productRouter)
 router.use('/carts', cartRouter)
-router.use('/orders', orderRouter)
+// router.use('/orders', orderRouter)
 // router.use('/cart', cartRouter);
 router.use('/users',userRouter);
 router.use('/buyer',buyerRouter);
