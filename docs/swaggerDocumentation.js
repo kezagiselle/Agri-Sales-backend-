@@ -1,8 +1,9 @@
-export const documentation = {
+const swaggerDocumentation = {
+    
     "swagger": "2.0",
     "info": {
-        "title": "AGRI-SALES",
-        "description": "This is AP",
+        "title": "AGRI-SALES API",
+        "description": "This is the API Specification for the AGRI-SALES backend server",
         "version": "1.0.0",
         "contact": {
             "email": "uwasandrine99@gmail.com"
@@ -12,7 +13,8 @@ export const documentation = {
             "url": "https://opensource.org/license/mit"
         },
         "externalDocs": {
-            "description": "Get source code"
+            "description": "Get source code",
+            "url": "https://github.com/kezagiselle/Agri-Sales-backend-"
         }
     },
     
@@ -29,21 +31,29 @@ export const documentation = {
     "schemes": ["http", "https"],
     "tags": [
         {
-            "name": "user",
+            "name": "User",
             "description": "Operations pertaining to user"
         },
         {
-            "name": "product",
+            "name": "Product",
             "description": "Operations pertaining to product"
         },
        
         {
             "name": "order",
             "description": "Operations pertaining to orders"
+        },
+        {
+            "name": "carts",
+            "description": "Operations pertaining to carts"
+        },
+        {
+            "name": "order",
+            "description": "Operations pertaining to orders"
         }
     ],
     "paths": {
-        "/api/user/register": {
+        "/api/agri-sales/users/addUser": {
             "post": {
                 "tags": ["user"],
                 "summary": "Registration of user",
@@ -89,7 +99,7 @@ export const documentation = {
                 }
             }
         },
-        "/api/user/login": {
+        "/api/agri-sales/users/": {
             "post": {
                 "tags": ["user"],
                 "summary": "Login existing user",
@@ -135,7 +145,7 @@ export const documentation = {
                 }
             }
         },
-        "/api/product/create": {
+        "/api/agri-sales/products/addProduct": {
             "post": {
                 "tags": ["product"],
                 "summary": "Add a new product",
@@ -153,7 +163,7 @@ export const documentation = {
                 
                 "responses": {
                     "201": {
-                        "description": "Task created successfully",
+                        "description": "Product created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -180,7 +190,7 @@ export const documentation = {
                 }
             }
         },
-        "/api/product/get": {
+        "/api/agri-sales/products/productList": {
             "get": {
                 "tags": ["product"],
                 "summary": "Get all products",
@@ -212,7 +222,7 @@ export const documentation = {
                 }
             }
         },
-        "/api/product/update": {
+        "/api/agri-sales/products/update/:id": {
             "put": {
                 "tags": ["product"],
                 "summary": "Update a product",
@@ -230,7 +240,7 @@ export const documentation = {
                             "in": "body",
                             "name": "body",
                             "schema": {
-                                "$ref": "#/components/schemas/product"
+                                "$ref": "#/components/schemas/Product"
                             }
                         }
                     ],
@@ -264,15 +274,15 @@ export const documentation = {
                 }
             }
         },
-        "/api/product/findById": {
+        "/api/agri-sales/products/category/:category": {
             "get": {
                 "tags": ["product"],
-                "summary": "Get a product by ID",
-                "description": "Retrieves a specific product based on its ID",
+                "summary": "Get a product by category name",
+                "description": "Retrieves a specific product based on its category",
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "query",
+                        "name": "category",
+                        "in": "parameters",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -308,7 +318,7 @@ export const documentation = {
                 }
             }
         },
-        "/api/product/delete": {
+        "/api/agri-sales/products/delete/:id": {
             "delete": {
                 "tags": ["product"],
                 "summary": "Delete a product",
@@ -316,7 +326,7 @@ export const documentation = {
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "parameters",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -358,29 +368,29 @@ export const documentation = {
                 }
             }
         },
-        "/api/order/create": {
+        "/api/agri-sales/carts/addToCart": {
             "post": {
-                "tags": ["order"],
-                "summary": "Add a new order",
-                "description": "Creates a new order with the provided details",
+                "tags": ["carts"],
+                "summary": "Add a new carts",
+                "description": "Creates a new carts with the provided details",
                 
                     "parameters": [
                         {
                             "in": "body",
                             "name": "body",
                             "schema": {
-                                "$ref": "#/components/schemas/order"
+                                "$ref": "#/components/schemas/carts"
                             }
                         }
                     ],
                 
                 "responses": {
                     "201": {
-                        "description": "Order created successfully",
+                        "description": "carts created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/order"
+                                    "$ref": "#/components/schemas/carts"
                                 }
                             }
                         }
@@ -403,11 +413,11 @@ export const documentation = {
                 }
             }
         },
-        "/api/order/get": {
+        "/api/agri-sales/carts/getCart/:id": {
             "get": {
-                "tags": ["order"],
-                "summary": "Get all order",
-                "description": "Retrieves a list of all order",
+                "tags": ["carts"],
+                "summary": "Get carts by id",
+                "description": "Retrieves a cart by its id",
                
                         "parameters": [
                             {
@@ -420,11 +430,11 @@ export const documentation = {
                           ],
                           "responses": {
                             "200": {
-                                "description": "List of order  retrieved successfully",
+                                "description": "cart  retrieved successfully",
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/order"
+                                        "$ref": "#/components/schemas/carts"
                                     }
                                 }
                             }
@@ -433,17 +443,17 @@ export const documentation = {
                 }
             }
         },
-        "/api/order/update": {
-            "put": {
-                "tags": ["order"],
-                "summary": "Update order",
-                "description": "Updates an existing order with the provided details",
+        "/api/agri-sales/carts/remove/:id": {
+            "delete": {
+                "tags": ["carts"],
+                "summary": "Delete product in cart",
+                "description": "delete an existing product in carts with the provided details",
                 
                     "parameters": [
                         {
                             "name": "id",
                             "in": "path",
-                            "description": "ID of the order to update",
+                            "description": "ID of the cart to delete",
                             "required": true,
                             "type": "string"
                         },
@@ -451,18 +461,18 @@ export const documentation = {
                             "in": "body",
                             "name": "body",
                             "schema": {
-                                "$ref": "#/components/schemas/order"
+                                "$ref": "#/components/schemas/carts"
                             }
                         }
                     ],
                 
                 "responses": {
                     "200": {
-                        "description": "Order updated successfully",
+                        "description": "cart updated successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/order"
+                                    "$ref": "#/components/schemas/carts"
                                 }
                             }
                         }
@@ -485,11 +495,11 @@ export const documentation = {
                 }
             }
         },
-        "/api/order/findById": {
-            "get": {
-                "tags": ["order"],
-                "summary": "Get order by ID",
-                "description": "Retrieves a specific order based on its ID",
+        "/api/agri-sales/carts/update/:id": {
+            "put": {
+                "tags": ["carts"],
+                "summary": "update cart by ID",
+                "description": "update cart by ID",
                 "parameters": [
                     {
                         "name": "id",
@@ -502,17 +512,17 @@ export const documentation = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Order retrieved successfully",
+                        "description": "cart updated successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/order"
+                                    "$ref": "#/components/schemas/carts"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Not Found - order not found",
+                        "description": "Not Found - cart not found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -529,11 +539,11 @@ export const documentation = {
                 }
             }
         },
-        "/api/order/delete": {
-            "delete": {
+        "/api/agri-sales/orders/createOrder": {
+            "post": {
                 "tags": ["order"],
-                "summary": "Delete order",
-                "description": "Deletes order based on its ID",
+                "summary": "create order",
+                "description": "order created successfully",
                 "parameters": [
                     {
                         "name": "id",
@@ -546,7 +556,7 @@ export const documentation = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Order deleted successfully",
+                        "description": "Order created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -562,7 +572,7 @@ export const documentation = {
                         }
                     },
                     "404": {
-                        "description": "Not Found - order not found",
+                        "description": "Not Found - order not created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -587,45 +597,54 @@ export const documentation = {
             "Product": {
                 "type": "object",
                 "properties": {
+                   "farmerId": {
+                    "type":"mongoose.Schema.Types.ObjectId,ref: 'User'",
+                    "description": "the farmer id who is adding product"
+
+                    },
                     
-                    "name": {
+                    "productName": {
                         "type": "string",
                         "description": "Name of product"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Description of the task"
+                        "description": "Description of the product"
                     },
                     "price": {
                         "type": "number",
                         "description": "Price of product per unit"
                     },
-                    "countInStock": {
+                    "productInStock": {
                         "type": "number",
                         "description": "The quantity of product in stock"
+                    },
+                    "category":{
+                        "type": "string",
+                        "description": "category of product"
                     }
                 }
             },
-            "User": {
+            "carts": {
                 "type": "object",
                 "properties": {
                     
-                    "username": {
-                        "type": "string",
-                        "description": "The name of User"
+                    "buyerId": {
+                        "type": "mongoose.Schema.Types.ObjectId,ref: 'User'",
+                        "description": "The id of User"
                     },
-                    "email": {
-                        "type": "string",
-                        "description": "Email of the user"
+                    "productId": {
+                        "type": "mongoose.Schema.Types.ObjectId,ref: 'Product'",
+                        "description": "id of product to be added in cart "
                     },
-                    "password": {
-                        "type": "string",
-                        "description": "Password of the user"
+                    "quantity": {
+                        "type": "number",
+                        "description": "quantity of product you want to add into cart"
                     },
                     
-                    "otp": {
+                    "totalPrice": {
                         "type": "number",
-                        "description": "The verification code sent to the user email"
+                        "description": "total price of product you have in cart"
                     }
                 }
             },
@@ -633,28 +652,45 @@ export const documentation = {
                 "type": "object",
                 "properties": {
                    
-                    "user": {
+                    "buyerId": {
                         "type": "mongoose.Schema.Types.ObjectId,ref: 'User'",
                         "description": "The id of user refered to the user model"
                     },
-                    "product": {
-                        "type": " mongoose.Schema.Types.ObjectId, ref: 'Product'",
-                        "description": "The id of product refered  to the product model"
+                    "orderItems": [{
+                        "orderItemsId": " mongoose.Schema.Types.ObjectId,  ref: 'orderItem'",
+                        "description": "The id of product refered  to the orderItem model"
+                    }],
+                    "shippingAddress": {
+                        "type": "String",
+                        "description": "this is the address of shipping your order"
                     },
-                    "quantity": {
-                        "type": "Number",
-                        "description": "Quantity of product you ordered"
+                    "city": {
+                        "type": "String",
+                        "description": "shipping address city"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "country of shipment "
+                    },
+                    "phone": {
+                        "type": "String",
+                        "description": "phone number"
+                    },
+                    "transactionStatus": {
+                        "type": "String",
+                        "description": "transaction status which shows either it is delivered or not"
                     },
                     "totalPrice": {
-                        "type": "Number",
-                        "description": "The total price of product ordered"
-                    },
-                    "isPaid": {
-                        "type": "boolean",
-                        "description": "true if it is paid and false if not "
+                        "type": "number",
+                        "description": "total price of the ordered product"
                     }
+
                 }
             }
         }
     }
 }
+  
+  
+
+export default swaggerDocumentation;

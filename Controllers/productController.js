@@ -1,5 +1,6 @@
 import Product from "../models/productsModel.js";
 import { upload } from "../utils/uploadImage.js";
+import cloudinary from "../utils/cloudinary.js";
 
 
 
@@ -7,10 +8,14 @@ import { upload } from "../utils/uploadImage.js";
 export const AddProduct = 
 async (req, res, next) =>{
   try {
-    // if (req.user.Role!== 'farmer') {
-    //   return res.status(403).json({ message: 'Only farmers can add products.' });
-    // }
+    
 
+    const uploadImage = await cloudinary.uploader.upload(req.file.path, (err, uploadedImage) => {
+  if(err){
+    console.log(err.message);
+    return res.status(500).json({message: 'error'});
+  }
+})
 
     const { productName, description, price, productInStock, category } = req.body;
 
@@ -21,7 +26,11 @@ async (req, res, next) =>{
       price,
       productInStock,
       category,
-      image: req.file.path 
+      image: {
+        public_id: uploadImage.public_id,
+        asset_id: uploadImage.asset_id,
+        url: uploadImage.url
+      } 
     });
 
     
@@ -102,5 +111,21 @@ export const findProductByCategory = async (req, res, next) => {
       
         console.error(err);
         res.status(500).json({ message: 'An error occurred while finding products by category.' });
+      }
+    };
+
+
+    export const countProduct = async (req, res, next) => {
+      try {
+        // Count products that are in stock
+        const productCount = await Product.countDocuments({ productInStock: { $gt: 0 } });
+    
+        if (!productCount) {
+          res.status(404).json({ success: false, message: 'No products found in stock' });
+        }
+    
+        res.json({ productCount: productCount });
+      } catch (err) {
+        res.status(500).json({ error: err.message });
       }
     };
