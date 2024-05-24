@@ -1,24 +1,45 @@
 import Product from "../models/productsModel.js";
 import { upload } from "../utils/uploadImage.js";
+import cloudinary from "../utils/cloudinary.js";
 
 
 
-export const AddProduct = upload.single('image') 
-async (req,res,next) =>{
 
-    const createProduct = req.body
-    try{
-        const createdProduct = await Product.create(createProduct)
-        res.status(201).json({
-         message: 'Product added successfully', 
-         createdProduct
+export const AddProduct = 
+async (req, res, next) =>{
+  try {
+    
+
+    const uploadImage = await cloudinary.uploader.upload(req.file.path, (err, uploadedImage) => {
+  if(err){
+    console.log(err.message);
+    return res.status(500).json({message: 'error'});
+  }
+})
+
+    const { productName, description, price, productInStock, category } = req.body;
+
+   
+    const newProduct = new Product({
+      productName,
+      description,
+      price,
+      productInStock,
+      category,
+      image: {
+        public_id: uploadImage.public_id,
+        asset_id: uploadImage.asset_id,
+        url: uploadImage.url
+      } 
     });
 
-    }catch(error){
-        res.status(500).json({ message: error.message });
-
-    }
-
+    
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to add product.' });
+  }
 }
 
 export const getProduct = async (req,res,next) =>{
@@ -78,7 +99,7 @@ export const DeleteProductById = async (req,res,next) => {
 
 export const findProductByCategory = async (req, res, next) => {
     try {
-        const categoryName = req.params.categoryName;
+        const categoryName = req.params.category;
         const products = await Product.find({ category: categoryName });
     
         if (products.length === 0) {
@@ -92,3 +113,19 @@ export const findProductByCategory = async (req, res, next) => {
         res.status(500).json({ message: 'An error occurred while finding products by category.' });
       }
     };
+
+
+export const countProduct = async (req, res, next) => {
+  try {
+    // Count products that are in stock
+    const productCount = await Product.countDocuments({ productInStock: { $gt: 0 } });
+
+    if (!productCount) {
+      res.status(404).json({ success: false, message: 'No products found in stock' });
+    }
+
+    res.json({ productCount: productCount });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

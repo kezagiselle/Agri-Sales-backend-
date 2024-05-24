@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const CartSchema = new mongoose.Schema({
   buyerId: {
@@ -14,22 +15,22 @@ const CartSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     required: true,
+    default:0
   },
   totalPrice: {
     type: Number,
     required: true,
   },
-  transactionStatus: {
-    type: String,
-    enum: ['pending', 'shipped', 'delivered'],
-    default: 'pending',
-  },
+ 
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const Cart = new mongoose.model('Cart', CartSchema);
+const Cart = new mongoose.model('carts', CartSchema);
 
 export default Cart;
+
+
+
