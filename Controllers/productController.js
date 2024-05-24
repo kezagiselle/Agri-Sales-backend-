@@ -115,17 +115,17 @@ export const findProductByCategory = async (req, res, next) => {
     };
 
 
-    export const countProduct = async (req, res, next) => {
-      try {
-        // Count products that are in stock
-        const productCount = await Product.countDocuments({ productInStock: { $gt: 0 } });
-    
-        if (!productCount) {
-          res.status(404).json({ success: false, message: 'No products found in stock' });
-        }
-    
-        res.json({ productCount: productCount });
-      } catch (err) {
-        res.status(500).json({ error: err.message });
-      }
-    };
+export const countProduct = async (req, res, next) => {
+  try {
+    // Count products that are in stock
+    const productCount = await Product.countDocuments({ productInStock: { $gt: 0 } });
+
+    if (!productCount) {
+      res.status(404).json({ success: false, message: 'No products found in stock' });
+    }
+
+    res.json({ productCount: productCount });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
