@@ -141,50 +141,37 @@ const signUp = asyncWrapper(async(req,res,next) => {
     });
     
     const resetPassword = asyncWrapper(async (req,res,next) => {
-        //validation
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return next(new BadRequestError(errors.array()[0].msg));
-        };
+        const { token, id, password } = req.body;
     
-        //verify token
-        const decoded = await jwt.verify(req.body.token, process.env.JWT_SECRET);
-        if (!decoded) {
-            return next(new BadRequestError("Invalid token!"));
+        // Validate input
+        if (!token || !id || !password) {
+            return next(new BadRequestError("Token, id, and new password are required."));
         }
     
-        const recordedToken = await Token.findOne({ token: req.body.token });
-        
-        if (decoded.id!= req.body.id || recordedToken.user!= req.body.id) {
-            return next(new BadRequestError("Invalid token!"));
+        // Verify token
+        const foundToken = await Token.findOne({token});
+        if (!foundToken) {
+            return next(new BadRequestError("Invalid or expired token."));
         }
     
-        if (new Date(recordedToken.expirationDate).getTime() < new Date().getTime()) {
-            return next(new BadRequestError("Token expired!"));
-        }
-    
-        //find user
-        const foundFarmer = await farmerModel.findById(req.body.id);
+        // Update user's password
+        const foundFarmer = await farmerModel.findById(id);
         if (!foundFarmer) {
-            return next(new BadRequestError("User not found!"));
-        };
-    
-        //Deleting the user token
-        await Token.deleteOne({ token: req.body.token });
-    
-        //Harshing the user password
-        const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
-        
-        //updating the user password
-        foundFarmer.password = hashedPassword;
-    
-        const savedFarmer = await foundFarmer.save();
-        if (savedFarmer) {
-            return res.status(200).json({
-                message: "Your password has been reset!",
-            })
+            return next(new BadRequestError("Invalid farmer."));
         }
+    
+        // Update user's password
+        foundFarmer.password = password;
+        await foundFarmer.save();
+    
+        // Delete token from database
+        await Token.deleteOne({token});
+    
+        res.status(200).json({
+            message: "Password reset successful.",
+        });
     });
+
     const deleteFarmer = asyncWrapper(async (req, res, next) => {
         const id = req.params.id;
             const farmer = await farmerModel.findByIdAndDelete(id);

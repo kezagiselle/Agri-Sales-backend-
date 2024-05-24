@@ -3,15 +3,7 @@ import { AddProduct, getProduct, updateProductById, DeleteProductById, findProdu
 import { addProductValidator } from '../utils/validation.js';
 import { upload } from '../utils/uploadImage.js';
 const productRouter = express.Router();
-import checkUsers from '../middleware/authorisation.js';
 
-// productRouter.post('/upload-image',  upload.single('image'), (req, res) => {
-//     if (!req.file) {
-//       return res.status(400).send('No file uploaded.');
-//     }
-  
-//     res.status(200).send(`File ${req.file.filename} uploaded successfully.`);
-//   });
 
 
 productRouter.post('/addProduct', addProductValidator, upload.single('productImage'), AddProduct);

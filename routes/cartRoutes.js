@@ -2,6 +2,7 @@ import express from 'express';
 import { addProductToCart, getCart, removeProductFromCart, updateProductInCart } from '../Controllers/cartController.js';
 // import { validatedCart  } from '../utils/validation.js';
 const cartRouter = express.Router();
+import allValidation from '../utils/validation.js';
 
 
 

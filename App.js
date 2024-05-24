@@ -7,10 +7,12 @@ import swaggerUI from "swagger-ui-express";
 import swaggerDocumentation from './docs/swagger.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
 import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 
 
 
+app.use(express.json()); 
 // app.use(bodyParser)
 const app = express();
 app.use(express.json());
@@ -18,6 +20,7 @@ app.use(cookieParser());
 
 
 app.use('/api/agri-sales', router);
+
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
 
 
