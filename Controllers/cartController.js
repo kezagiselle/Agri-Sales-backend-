@@ -65,31 +65,6 @@ export const addProductToCart = async (req, res) => {
 };
 
 
-// export const getAllCart = async (req, res, next) => {
-//   const buyerId = req.params.buyerId;
-
-//   try {
-//     const userId = req.User._id; 
-//     const user = await userModel.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-    
-//     const carts = await cartModel.find({ buyerId }); 
-
-   
-//     if (carts.length === 0) {
-//       return res.status(404).json({ message: "No carts found for this user." });
-//     }
-
-//     res.status(200).json(carts); 
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// }
-
 
     export const removeProductFromCart = async (req, res, next) => {
       try {
