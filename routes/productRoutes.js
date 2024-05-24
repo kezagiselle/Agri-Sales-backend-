@@ -14,7 +14,7 @@ import checkUsers from '../middleware/authorisation.js';
 //   });
 
 
-productRouter.post('/addProduct', addProductValidator, upload.single('image'), AddProduct);
+productRouter.post('/addProduct', addProductValidator, upload.single('productImage'), AddProduct);
 productRouter.get('/productList', getProduct);
 productRouter.put('/update/:id',updateProductById);
 productRouter.delete('/delete/:id', DeleteProductById);

@@ -4,7 +4,7 @@ import express, { Router } from 'express';
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
 import swaggerUI from "swagger-ui-express";
-import swaggerDocumentation from './docs/swaggerDocumentation.js'
+import swaggerDocumentation from './docs/swagger.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
 import cookieParser from 'cookie-parser';
 
