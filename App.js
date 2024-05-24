@@ -7,11 +7,18 @@ import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
 import Configurations from './configurations/index.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
+import cookieParser from 'cookie-parser';
+// import swaggerUi from 'swagger-ui-express';
+// import swagger from './docs/swagger.json' assert {type:"json"}
+
 
 app.use(express.json()); 
+app.use(cookieParser());
 
 
 app.use('/api/agri-sales', router);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger));
+
 
 const start = async () => {
     try {

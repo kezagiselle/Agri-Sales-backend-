@@ -1,6 +1,5 @@
 import express from 'express';
 import Cart from "../models/CartModel.js";
-import { validateCart } from '../utils/validation.js';
 
 
 export const addProductToCart = 

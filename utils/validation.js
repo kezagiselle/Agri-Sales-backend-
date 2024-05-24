@@ -37,6 +37,10 @@ const addProductValidator=[
      body("name","product name is required").notEmpty().isString(),
     body("price","product price is required").notEmpty().isNumeric(),
 ];
+// const addDiseaseValidator = [
+//   body("DiseaseName","Disease name is required").notEmpty().isString(),
+//   body("Description","Description is required").notEmpty().isString()
+// ];
 const  validateCart = (req, res, next) =>{
     const { buyerId, productId, quantity } = req.body;
   
@@ -61,7 +65,8 @@ const allValidation ={
     otpValidation,
     forgotPasswordValidation,
     resetPasswordValidation,
-    validateCart 
-    addProductValidator
+    validateCart, 
+    addProductValidator,
+    // addDiseaseValidator
 };
 export default allValidation;

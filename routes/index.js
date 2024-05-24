@@ -8,6 +8,7 @@ import farmerRouter from './FarmerSignUp.js';
 import tokenRouter from './userToken.js';
 import agronomistRouter from './agronomistSignUp.js';
 import cartRouter from './cartRoutes.js';
+import diseaseRouter from './Disease.js';
 
 router.use('/products', productRouter)
 router.use('/carts', cartRouter)
@@ -17,6 +18,7 @@ router.use('/buyer',buyerRouter);
 router.use('/farmer',farmerRouter);
 router.use('/token',tokenRouter);
 router.use('/agro',agronomistRouter);
+router.use('/disease',diseaseRouter);
 
 
 export default router
