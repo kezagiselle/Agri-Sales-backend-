@@ -12,7 +12,7 @@ import cookieParser from 'cookie-parser';
 
 const corsOptions = {
     allowedHeaders: ["Authorization","Content-Type"],
-    methods: ["GET", "POST", "UPDATE" ],
+    methods: ["GET", "POST", "UPDATE", "DELETE" ],
     origin: ["http://localhost:5173", process.env.CLIENT_SIDE],
   }
 
