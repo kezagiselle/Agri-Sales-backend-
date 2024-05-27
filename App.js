@@ -1,23 +1,28 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express, { Router } from 'express';
+import cors from "cors";
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
 import swaggerUI from "swagger-ui-express";
 import swaggerDocumentation from './docs/swagger.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
 import cookieParser from 'cookie-parser';
-import cookieParser from 'cookie-parser';
 
 
 
+// const corsOptions = {
+//     allowedHeaders: ["Authorization","Content-Type"],
+//     methods: ["GET", "POST", "UPDATE" ],
+//     origin: ["http://localhost:5173", process.env.CLIENT_SIDE],
+//   }
 
-app.use(express.json()); 
-// app.use(bodyParser)
 const app = express();
+app.use(express.json()); 
+app.use(cors());
+// app.use(bodyParser)
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use('/api/agri-sales', router);
 
