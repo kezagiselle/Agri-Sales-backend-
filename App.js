@@ -6,20 +6,19 @@ import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
 import swaggerUI from "swagger-ui-express";
 import swaggerDocumentation from './docs/swagger.js';
-import ErrorHandler from './middleware/ErrorHandler.js';
 import cookieParser from 'cookie-parser';
 
 
 
-// const corsOptions = {
-//     allowedHeaders: ["Authorization","Content-Type"],
-//     methods: ["GET", "POST", "UPDATE" ],
-//     origin: ["http://localhost:5173", process.env.CLIENT_SIDE],
-//   }
+const corsOptions = {
+    allowedHeaders: ["Authorization","Content-Type"],
+    methods: ["GET", "POST", "UPDATE" ],
+    origin: ["http://localhost:5173", process.env.CLIENT_SIDE],
+  }
 
 const app = express();
 app.use(express.json()); 
-app.use(cors());
+app.use(cors(corsOptions));
 // app.use(bodyParser)
 app.use(express.json());
 app.use(cookieParser());
