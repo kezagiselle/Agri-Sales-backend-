@@ -4,9 +4,9 @@ import express, { Router } from 'express';
 import cors from "cors";
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
-import swaggerUI from "swagger-ui-express";
-import swaggerDocumentation from './docs/swagger.js';
 import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+import swagger from './docs/swagger.json' assert {type:"json"}
 
 
 
@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use('/api/agri-sales', router);
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger));
 
 
 const start = async () => {

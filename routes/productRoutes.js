@@ -8,8 +8,8 @@ const productRouter = express.Router();
 
 productRouter.post('/addProduct', addProductValidator, upload.single('productImage'), AddProduct);
 productRouter.get('/productList', getProduct);
+productRouter.put('/updateProduct/:id',updateProductById);
 productRouter.get('/productById/:id', getProductById)
-productRouter.put('/update/:id',updateProductById);
 productRouter.delete('/delete/:id', DeleteProductById);
 productRouter.get('/category/:category', findProductByCategory);
 productRouter.get('/productCount', countProduct);
