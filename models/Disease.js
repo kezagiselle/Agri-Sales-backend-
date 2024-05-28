@@ -14,16 +14,10 @@ const DiseaseSchema = new mongoose.Schema({
         required: true
     },
     Image: {
-        public_id: {
-          type: String,
-        },
-        asset_id:{
-          type: String,
-        },
-        url:{
-          type: String,
-        }
-      },
+       url:{
+        type: String
+       }
+    },
     AgronomistId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

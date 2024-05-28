@@ -603,18 +603,48 @@
                 ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/disease"
-                        },
+                        "in": "formData",
+                        "name": "DiseaseName",
+                       "type":"string",
+                        "required": true,
+                        "description": "Disease object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "Description",
+                       "type":"string",
+                        "required": true,
+                        "description": "Disease object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "Solution",
+                       "type":"string",
+                        "required": true,
+                        "description": "Disease object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "Image",
+                       "type":"file",
+                        "required": true,
+                        "description": "Disease object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "AgronomistId",
+                       "type":"mongoose.Schema.Types.ObjectId",
                         "required": true,
                         "description": "Disease object"
                     }
+
                 ],
                 "responses": {
                     "201": {
                         "description": " Disease created"
+                    },
+                    "401":{
+                        "description":"Bad request -Validation error"
                     }
                 }
             }
