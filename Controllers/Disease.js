@@ -23,8 +23,6 @@ const addDisease = asyncWrapper(async (req, res) => {
             Description,
             Solution,
             Image: {
-              public_id: uploadImage.public_id,
-              asset_id: uploadImage.asset_id,
               url: uploadImage.url
             },
             AgronomistId
