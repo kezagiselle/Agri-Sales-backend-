@@ -87,8 +87,6 @@ const swaggerDocumentation = {
           "timestamps": "true"
             
           },
-     
-        
         "carts": {
             "type": "object",
             "properties": {
@@ -165,511 +163,81 @@ const swaggerDocumentation = {
           }
         }
       },
-    },
-    "paths": {
-      "/api/agri-sales/users/addUser": {
-        "post": {
-          "tags": ["Users"],
-          "summary": "Create a new user",
-          "description": "Creating a new user with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "User created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/users/listUsers": {
-        "get": {
-          "tags": ["Users"],
-          "summary": "Get all users",
-          "description": "Retrieves a list of all users",
-          "responses": {
-            "200": {
-              "description": "Users retrieved successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            }
-          }
-        }
-      },
-      "/api/agri-sales/users/findById/:id": {
-        "get": {
-          "tags": ["Users"],
-          "summary": "Get all users",
-          "description": "Retrieves a list of all users",
-          "responses": {
-            "200": {
-              "description": "Users retrieved successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            }
-          }
-        }
-      },
-      "/api/agri-sales/users//update/:id": {
-        "put": {
-          "tags": ["Users"],
-          "summary": "Update an event",
-          "description": "Updates an existing user with the provided details",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "User updated successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "404": {
-              "description": "Not Found - User not found"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/users/delete/:id": {
-        "delete": {
-          "tags": ["Users"],
-          "summary": "Get an user by ID",
-          "description": "Retrieves a specific user based on its ID",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User retrieved successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "404": {
-              "description": "Not Found - User not found"
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/signUp": {
-        "post": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/signIn": {
-        "post": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/verify": {
-        "post": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/forgotPassword": {
-        "post": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/resetPassword": {
-        "post": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/agri-sales/buyer/deleteBuyer/:id": {
-        "delete": {
-          "tags": ["buyer"],
-          "summary": "Create a new buyer sign up",
-          "description": "Creating a new buyer with detailed information",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/buyer"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "buyer created successfully",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/buyer"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized - Invalid JWT token"
-            },
-            "403": {
-              "description": "Forbidden - Insufficient permissions"
-            },
-            "400": {
-              "description": "Bad Request - Validation errors",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      
       "/api/agri-sales/products/addProduct": {
         "post": {
           "tags": ["Product"],
           "summary": "Create a new product",
           "description": "Creating a new product",
+
+          "parameters": [
+            {
+              "farmerId": "farmerId",
+              "in": "formData",
+              "required": true,
+              "type":"string"
+            },
+            {
+              "name": "productName",
+              "in": "formData",
+              "required": true,
+              "type":"string"
+              
+            },
+            {
+              "name": "image",
+              "in": "formData",
+              "public_id": {
+                "type": "String",
+              },
+              "asset_id":{
+                "type": "String",
+              },
+              "url":{
+                "type": "String",
+              }
+            },
+            {
+              "name": "description",
+              "in": "formData",
+              "required": true,
+              "type":"string"
+             
+            },
+            {
+              "name": "price",
+              "in": "formData",
+              "required": true,
+              "type":"number"
+             
+            },
+            {
+              "name": "productInStock",
+              "in": "formData",
+              "required": true,
+              "type":"number"
+             
+            },
+            {
+              "name": "category",
+              "in": "formData",
+              "required": true,
+              "type":"string"
+             
+            },
+            {
+              "name": "updatedAt",
+              "in": "formData",
+              "required": true,
+              "type":"date",
+              "default": "date.now"
+             
+            },
+            {
+              "name": "timestamps",
+              "in": "formData"
+            }
+          ],
+
           "requestBody": {
             "required": true,
             "content": {
