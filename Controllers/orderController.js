@@ -1,7 +1,7 @@
  
 import Product from "../models/productsModel.js";
 // import Cart from "../models/CartModel.js";
-import Order from "../models/OrderModel.js";
+import Order from "../../Agri-Sales-backend-/models/OrderModel.js";
 import OrderItem from "../models/orderItem.js";
 
 
