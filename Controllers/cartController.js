@@ -65,6 +65,21 @@ export const addProductToCart = async (req, res) => {
 };
 
 
+export const getAllCarts = async (req, res) => {
+  try {
+    const cartList = await Cart.find()
+    if(!cartList){
+      res.status(500).json({ success: false , message: 'no carts available'
+    })
+    
+  }
+  res.status(200).json({message:'List of carts',carts:cartList});
+} catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 
     export const removeProductFromCart = async (req, res, next) => {
       try {
