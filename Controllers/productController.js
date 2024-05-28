@@ -57,6 +57,23 @@ export const getProduct = async (req,res,next) =>{
     }
 }
 
+export const getProductById = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id)
+
+    if(!product){
+      res.status(500).json({ success: false , message: 'no product available'
+    })
+    
+  }
+  res.status(200).json({message:'getting product by its ID successfully',product:product});
+} catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+
 export const updateProductById = async (req, res, next) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
