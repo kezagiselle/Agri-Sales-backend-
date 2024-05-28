@@ -9,6 +9,6 @@ farmerRouter.post('/signIn',allValidation.signInValidation,farmerControllers.Sig
 farmerRouter.post('/verify',allValidation.otpValidation,farmerControllers.validateOtp);
 farmerRouter.post('/forgotPassword',allValidation.forgotPasswordValidation,farmerControllers.forgotPassword);
 farmerRouter.post('/resetPassword',allValidation.resetPasswordValidation,farmerControllers.resetPassword);
-farmerRouter.delete('/deleteFarmer/:id',farmerControllers.deleteFarmer);
+farmerRouter.delete('/delete/:id',farmerControllers.deleteFarmer);
 
 export default farmerRouter;

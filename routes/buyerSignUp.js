@@ -9,7 +9,7 @@ buyerRouter.post('/signIn',allValidation.signInValidation,buyerControllers.SignI
 buyerRouter.post('/verify',allValidation.otpValidation,buyerControllers.validateOtp);
 buyerRouter.post('/forgotPassword',allValidation.forgotPasswordValidation,buyerControllers.forgotPassword);
 buyerRouter.post('/resetPassword',allValidation.resetPasswordValidation,buyerControllers.resetPassword);
-buyerRouter.delete('/deleteBuyer/:id',buyerControllers.deleteBuyer);
+buyerRouter.delete('/delete/:id',buyerControllers.deleteBuyer);
 
 
 export default buyerRouter;

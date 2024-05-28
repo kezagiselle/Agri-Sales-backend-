@@ -9,7 +9,7 @@ agronomistRouter.post('/signIn',allValidation.signInValidation,agronomistControl
 agronomistRouter.post('/verify',allValidation.otpValidation,agronomistControllers.validateOtp);
 agronomistRouter.post('/forgotPassword',allValidation.forgotPasswordValidation,agronomistControllers.forgotPassword);
 agronomistRouter.post('/resetPassword',allValidation.resetPasswordValidation,agronomistControllers.resetPassword);
-agronomistRouter.delete('/deleteBuyer/:id',agronomistControllers.  deleteAgronomist);
+agronomistRouter.delete('/delete/:id',agronomistControllers.  deleteAgronomist);
 
 
 export default agronomistRouter;
