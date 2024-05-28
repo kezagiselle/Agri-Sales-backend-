@@ -1,10 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express, { Router } from 'express';
+import cors from "cors";
 import connectDB from './db/connectDB.js';
 import router from './routes/index.js';
-import swaggerUI from "swagger-ui-express";
-import ErrorHandler from './middleware/ErrorHandler.js';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import swagger from './docs/swagger.json' assert {type:"json"}
@@ -12,12 +11,11 @@ import swagger from './docs/swagger.json' assert {type:"json"}
 
 
 const app = express();
-
 app.use(express.json()); 
+app.use(cors());
 // app.use(bodyParser)
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use('/api/agri-sales', router);
 

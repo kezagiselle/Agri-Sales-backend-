@@ -82,7 +82,7 @@ user:async (req, res, next) => {
     }
 },
 }
-// export default checkUsers;
+export default checkUsers;
 
 
 
