@@ -21,7 +21,7 @@ const DiseaseSchema = new mongoose.Schema({
     AgronomistId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: false
+        required: true
     },
 });
 

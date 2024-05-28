@@ -70,12 +70,12 @@ const  validateCart = (req, res, next) =>{
   
   
 
-    const addCartValidator = [
-    body("quantity", "quantity is required").notEmpty().isNumeric()
-    .withMessage("quantity must be a number").custom((value) => value > 0, 
-    { message: "quantity must be greater than 0" }),
+  //   const addCartValidator = [
+  //   body("quantity", "quantity is required").notEmpty().isNumeric()
+  //   .withMessage("quantity must be a number").custom((value) => value > 0, 
+  //   { message: "quantity must be greater than 0" }),
 
-  ]
+  // ]
 
 
 
