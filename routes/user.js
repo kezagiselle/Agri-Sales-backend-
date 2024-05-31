@@ -4,10 +4,11 @@ import userControllers from "../Controllers/user.js";
 import allValidation from "../utils/validation.js";
 // import checkUsers from "../middleware/authorisation.js";
 
-userRouter.post('/addUser',allValidation.addUserValidation,userControllers.addUser);
-userRouter.get('/listUsers',userControllers.getAllUsers);
-userRouter.get('/findByIdUser/:id',userControllers.findById);
-userRouter.put('/updateUser/:id',userControllers.updateUser);
-userRouter.delete('/deleteUser/:id',userControllers.deleteUser);
+userRouter.post('/signUp',allValidation.signUpValidation,userControllers.signUp);
+userRouter.post('/signIn',allValidation.signInValidation,userControllers.SignIn);
+userRouter.post('/verify',allValidation.otpValidation,userControllers.validateOtp);
+userRouter.post('/forgotPassword',allValidation.forgotPasswordValidation,userControllers.forgotPassword);
+userRouter.post('/resetPassword',allValidation.resetPasswordValidation,userControllers.resetPassword);
+userRouter.delete('/delete/:id',userControllers.deleteUser);
 
 export default userRouter;
