@@ -760,6 +760,9 @@
                 "tags": [
                     "Product"
                 ],
+                "consumes": [
+                    "multipart/form-data"
+                  ],
                 "parameters": [
                     {
                         "in": "formData",
@@ -821,9 +824,10 @@
                     {
                         "in": "formData",
                         "name": "updatedAt",
-                       "type":"date",
+                       "type":"string",
+                       "format": "date-time",
                         "required": true,
-                        "default": "Date.now",
+                        "default": "2024-05-30T12:34:56.789Z",
                         "description": "Product object"
                     }
 
