@@ -855,6 +855,23 @@
                 }
             }
         },
+        "/api/agri-sales/products/productById/{id}": {
+            "get": {
+                "summary": "Find product by ID",
+                "description": "Find products by ID",
+                "tags": [
+                    "Product"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "product not found"
+                    }
+                }
+            }
+        },
         "/api/agri-sales/products/updateProduct/{id}": {
             "put": {
                 "summary": "update a product",
