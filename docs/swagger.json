@@ -1,5 +1,14 @@
 {
     "swagger": "2.0",
+    "securityDefinitions": {
+        "Bearer": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header",
+          "description": "Enter your bearer token in the format **Bearer <token>**"
+        }
+      },
+      "security": [{ "Bearer": [] }],
     "info": {
         "title": "Agri-Sales-API",
         "description": "API documentation for Agri-Sales",
@@ -465,10 +474,10 @@
                 }
             }
         },
-        "/api/agri-sales/users/addUser": {
+        "/api/agri-sales/users/signUp": {
             "post": {
-                "summary": "Create a new user",
-                "description": "Create a user to your account",
+                "summary": "Create an account",
+                "description": "To find more first sign Up",
                 "tags": [
                     "User"
                 ],
@@ -480,74 +489,25 @@
                             "$ref": "#/definitions"
                         },
                         "required": true,
-                        "description": "user object"
+                        "description": "signUp object"
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "user created"
+                        "description": " user created"
                     }
-                }
+                },
+                "security": [{ "Bearer": [] }]
             }
         },
-        "/api/agri-sales/users/listUsers": {
-            "get": {
-                "summary": "Find all users",
-                "description": "Find all users",
-                "tags": [
-                    "User"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful retrieved"
-                    },
-                    "404": {
-                        "description": "User not found"
-                    }
-                }
-            }
-        },
-        "/api/agri-sales/users/findByIdUser/{id}": {
-            "get": {
-                "summary": "get a user by ID",
-                "description": "get a single user by ID",
+        "/api/agri-sales/users/signIn": {
+            "post": {
+                "summary": "Login into your account",
+                "description": "first login",
                 "tags": [
                     "User"
                 ],
                 "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the user to get",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "single user got it!"
-                    },
-                    "404": {
-                        "description": "user not found"
-                    }
-                }
-            }
-        },
-        "/api/agri-sales/users/updateUser/{id}": {
-            "put": {
-                "summary": "update your user",
-                "description": "updating the users",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the user to update",
-                        "required": true,
-                        "type": "string"
-                    },
                     {
                         "in": "body",
                         "name": "body",
@@ -555,20 +515,92 @@
                             "$ref": "#/definitions"
                         },
                         "required": true,
-                        "description": "Updated user object"
+                        "description": "signIn object"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Successful retrieved"
-                    },
-                    "404": {
-                        "description": "user not found"
+                    "201": {
+                        "description": " user logged in"
                     }
                 }
             }
         },
-        "/api/agri-sales/users/deleteUser/{id}": {
+        "/api/agri-sales/users/verify": {
+            "post": {
+                "summary": "verify your otp",
+                "description": "verify your account",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account verified"
+                    }
+                }
+            }
+        },
+        "/api/agri-sales/users/forgotPassword": {
+            "post": {
+                "summary": "incase you forgot your password",
+                "description": "if you forgot your password",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "forgotPassword object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account click on forgotPassword"
+                    }
+                }
+            }
+        },
+        "/api/agri-sales/users/resetPassword": {
+            "post": {
+                "summary": "reset your password",
+                "description": "set another password incase you forgot your password",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account reset"
+                    }
+                }
+            }
+        },
+        "/api/agri-sales/users/delete/{id}": {
             "delete": {
                 "summary": "Delete a user by ID",
                 "description": "Delete a user by ID",
@@ -634,7 +666,7 @@
                         "in": "formData",
                         "name": "AgronomistId",
                        "type":"mongoose.Schema.Types.ObjectId",
-                        "required": true,
+                        "required": false,
                         "description": "Disease object"
                     }
 
@@ -1302,44 +1334,50 @@
     },
         
   "definitions": {
-        "Agronomist": {
-            "type": "object",
-            "properties": {
-                "firstName": {
-                    "type": "String",
-                    "required": true
-                },
-                "lastName": {
-                    "type": "String",
-                    "required": true
-                },
-                "email": {
-                    "type": "String",
-                    "required": true,
-                    "unique": true
-                },
-                "role": {
-                    "type": "String",
-                    "required": true
-                },
-                "password": {
-                    "type": "String",
-                    "required": true
-                },
-                "otp": {
-                    "type": "Number",
-                    "required": true
-                },
-                "otpExpires": {
-                    "type": "Date",
-                    "required": false
-                },
-                "verified": {
-                    "type": "Boolean",
-                    "required": true,
-                  
-                    "default": false
-                }
+    "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        },
+        "schemas": {
+          "User": {
+            "firstName": {
+                "type": "String",
+                "required": true
+            },
+            "lastName": {
+                "type": "String",
+                "required": true
+            },
+            "email": {
+                "type": "String",
+                "required": true,
+                "unique": true
+            },
+            "role": {
+                "type": "String",
+                "required": true
+            },
+            "password": {
+                "type": "String",
+                "required": true
+            },
+            "otp": {
+                "type": "Number",
+                "required": true
+            },
+            "otpExpires": {
+                "type": "Date",
+                "required": false
+            },
+            "verified": {
+                "type": "Boolean",
+                "required": true,
+                "default": false
+            }
             },
             "required": [
                 "firstName",
@@ -1677,6 +1715,7 @@
             }
         }
     }
+}
 
             
         

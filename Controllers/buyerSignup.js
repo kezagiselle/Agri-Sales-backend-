@@ -10,7 +10,7 @@ dotenv.config()
 import otpGenerator from "../utils/otp.js";
 import sendEmail from '../utils/sendEmail.js';
 import UnauthorizedError from '../Errors/UnAuthorisedError.js';
-import { serveWithOptions } from 'swagger-ui-express';
+// import { serveWithOptions } from 'swagger-ui-express';
 import { json } from 'express';
 
 const signUp = asyncWrapper(async (req, res, next) => {

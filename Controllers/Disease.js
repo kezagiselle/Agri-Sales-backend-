@@ -18,7 +18,7 @@ const addDisease = asyncWrapper(async (req, res) => {
             return next(new BadRequestError(errors.array()[0].msg));
         }
         const { DiseaseName, Description, Solution,AgronomistId} =(req.body);
-        const newDisease  = new Disease({
+        const newDisease  = new DiseaseModel({
             DiseaseName,
             Description,
             Solution,
@@ -29,7 +29,7 @@ const addDisease = asyncWrapper(async (req, res) => {
           });
 
           await newDisease.save();
-          res.status(201).json(newProduct);
+          res.status(201).json(newDisease);
         } catch (error) {
           console.error(error);
           res.status(500).json({ message: 'Failed to add product.' });
