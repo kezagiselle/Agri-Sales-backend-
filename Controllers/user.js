@@ -77,7 +77,7 @@ const validateOtp = asyncWrapper(async (req, res, next) => {
         });
     }
 });
-const SignIn = asyncWrapper(async (req, res, next) => {
+const signIn = asyncWrapper(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new BadRequestError(errors.array()[0].msg));
@@ -186,7 +186,7 @@ const deleteUser = asyncWrapper(async (req, res, next) => {
 
 const userControllers = {
     signUp,
-    SignIn,
+    signIn,
     validateOtp,
     forgotPassword,
     resetPassword,
